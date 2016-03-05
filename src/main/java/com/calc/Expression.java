@@ -1,3 +1,13 @@
+/**
+ * Expression.java
+ * 
+ * Parses an expression string into discrete expressions and solves the expression by
+ * using recursion on the discrete nested expressions.
+ *  
+ * @author Doug Wyllie
+ * @version 1.0 Mar 4/16
+ */
+
 package com.calc;
 
 public class Expression {
@@ -8,6 +18,14 @@ public class Expression {
 	private static final String OPERATOR_DIV  = "div";
 	private static final String OPERATOR_LET  = "let";
 	
+	/**
+	 * Solves an expression and returns an integer result.
+	 * Also keeps track of the nested level of the expression.
+	 *  
+	 * @param  expression  An expression string. Example: "add(1,2)"
+	 * @param  level       The nested level of the expression within the the original expression.
+	 * @return             The integer result.
+	 */
 	public int solveExpression( String expression, int level ) {
 		int result = 0;
 
@@ -68,7 +86,7 @@ public class Expression {
 				
 				// If the expression containing the variable is syntactically correct and all spaces have been removed, 
 				// the variable can be delimited in 2 ways: "(<var>," or ",<var>)"
-				// In the expression we want to replace all occurrences of the variable with the variable value. 
+				// In the expression, we want to replace all occurrences of the variable with the variable value. 
 				String replace1 = "\\(" + variable + ",";
 				String replace2 = "," + variable + "\\)";
 				String replacement1 = "\\(" + variableValue + ",";
@@ -102,9 +120,13 @@ public class Expression {
 	
 	// Parse the given expression into components. 
 	// An valid Expression will be either:
-	//    1. A number
+	//    1. A number 
 	//    2. An Arithmetic Operator with 2 Arguments.
 	//    3. A Let Operator with 3 Arguments.
+	//
+	// Note that variables have already been replaced with numbers when expressions are passed to 
+	// parseExpression(). so we don't need to handle variables here.
+	// 
 	// Examples:
 	//    - 7                        Number: 7
 	//    - add(5,7)                 Operator: add   Arg1: 5         Arg2: 7
@@ -235,6 +257,7 @@ public class Expression {
 		return;
 	}
 	
+	// Show the parsed expression on the console if the DEBUG level of verbosity is set.
 	private void showParsedExpression( ExpressionComponents expressionComponents, int level ) {
 		String sParsed = "";
 		if ( !expressionComponents.getOperator().equals("") )  sParsed += "  Operator = " + expressionComponents.getOperator();
@@ -249,8 +272,12 @@ public class Expression {
 		Logger.getLogger().log( String.format("%1$" + padding + "s", sParsed), Logger.Level.DEBUG );
 	}
 	
-	// Integer operations silently wrap the results without indicating underflow/overflow. Yikes!
+    // Integer operations in Java do not indicate Integer underflow and overflow conditions and will silently 
+	// wrap the results. With Integer 32-bit: 2147483647 + 100 will give a result of -2147483549. Yikes!.
 	// We have to do our own checking for underflow/overflow.
+    // Here we use a technique called "Upcasting". Integer values and all intermediary results are
+    // upcast to Long. The Long values are then checked against Integer.MIN_VALUE and Integer.MAX_VALUE.
+    // If a value is out of range, an error is logged, otherwise the result is safely downcast to int.
 	private int integerOverflowUnderflowCheck( ExpressionComponents expressionComponents, long result ) {
 		if ( result < Integer.MIN_VALUE ) {
 			Logger.getLogger().log( "Expression value < Integer.MIN_VALUE (-2147483648): " + expressionComponents.toString() + "  ...Setting value to 0.",

@@ -1,11 +1,24 @@
+/**
+ * Calculator.java
+ * 
+ * The Calculator program evaluates an expression supplied in a simple integer expression 
+ * language. The program takes input supplied on the command line, computes the result and 
+ * prints it to the console. 
+ *
+ * @author Doug Wyllie
+ * @version 1.0 Mar 4/16
+ */
+
 package com.calc;
 
 public class Calculator {
+	
 	public static void main(String[] args) {
 
 		// Default logging level to ERROR.
 		Logger.getLogger().setLoggingLevel(Logger.Level.ERROR);
 
+		// Get the expression string from the command line.
 		String expressionString = "";
 		expressionString = getExpressionString( args );
 		
@@ -42,17 +55,16 @@ public class Calculator {
 
 	// Get and return the expression string from the command line arguments.
 	// If the command line arguments are invalid in any way, return an empty string.
+	// There must be 1 or 2 command line arguments. They can be in any order. Valid forms are:
+	//    add(1,2) -DEBUG
+	//    -INFO "mult(3,4)"
+	//    let(a, let(b, 10, add(b, b)), let(b, 20, add(a, b)))
 	private static String getExpressionString( String[] args ) {
 		
-		// There must be 1 or 2 command line arguments. Valid forms are:
-		//    -INFO "mult(3,4)"
-		//    add(1,2) -DEBUG
-		//    let(a,5,add(a,a))
 		if ( args.length < 1 || args.length > 2 ) {
 			return("");
 		}
 		
-		// Get the command line arguments.
 		String expressionString = "";
 		if ( args.length == 2 ) {
 			// Two arguments. Determine which one is the switch.

@@ -1,27 +1,25 @@
+/**
+ * CalculatorTest.java
+ *
+ * Unit tests for the Calculator program.
+ *
+ * @author Doug Wyllie
+ * @version 1.0 Mar 4/16
+ */
+
 package com.calc;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Unit tests for the Calculator program.
- */
 public class CalculatorTest extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
     public CalculatorTest( String testName )
     {
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
     public static Test suite()
     {
         return new TestSuite( CalculatorTest.class );

@@ -1,9 +1,21 @@
+/**
+ * ExpressionComponents.java
+ * 
+ * Class to store an expression in components.
+ * A valid Expression will be either:
+ *    1. A number
+ *    2. An Arithmetic Operator with 2 Arguments.
+ *    3. A Let Operator with 3 Arguments.
+ *
+ * Note that variables have already been replaced with numbers when expressions are parsed into 
+ * components. So we don't need to handle variables here.
+ *
+ * @author Doug Wyllie
+ * @version 1.0 Mar 4/16
+ */
+
 package com.calc;
 
-// A valid Expression will be either:
-//    1. A number
-//    2. An Arithmetic Operator with 2 Arguments.
-//    3. A Let Operator with 3 Arguments.
 public class ExpressionComponents {
 
 	private int number = 0;

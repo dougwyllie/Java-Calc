@@ -1,6 +1,15 @@
+/**
+ * Logger.java
+ *
+ * Logs messages based on a set logging verbosity level.
+ * The Logger class uses the Singleton design pattern.
+ *
+ * @author Doug Wyllie
+ * @version 1.0 Mar 4/16
+ */
+
 package com.calc;
 
-// Logger class uses the Singleton design pattern.
 public class Logger {
 	private static Logger instance = null;
 	
@@ -28,16 +37,21 @@ public class Logger {
 	public void setErrorCount( int count ) { errorCount = count; }
 	
 	
-	public void log( String sMessage, Level level ) {
-		// We have a message with a certain verbosity level.
-		// Only log the message if the level is greater or equal to the current Logging level.
+	/**
+	 * Logs a message if the given level has the same verbosity or is less verbose than the 
+	 * current set logging level. 
+	 *  
+	 * @param  message  The message string.  
+	 * @param  level    The logging level of the message string.
+	 */
+	public void log( String message, Level level ) {
 		if ( level.compareTo(LoggingLevel) >= 0 ) {
 
 			if ( level == Level.ERROR ) {
-				sMessage = "**** ERROR: " + sMessage;
+				message = "**** ERROR: " + message;
 			}
 			
-			System.out.println( sMessage );
+			System.out.println( message );
 		}
 
 		if ( level == Level.ERROR ) errorCount++;
