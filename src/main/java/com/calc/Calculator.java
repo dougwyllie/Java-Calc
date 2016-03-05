@@ -54,7 +54,6 @@ public class Calculator {
 		
 		// Get the command line arguments.
 		String expressionString = "";
-		boolean invalidCommandLineArguments = false;
 		if ( args.length == 2 ) {
 			// Two arguments. Determine which one is the switch.
 			String switchStr = "";

@@ -1,6 +1,6 @@
 package com.calc;
 
-// An valid Expression will be either:
+// A valid Expression will be either:
 //    1. A number
 //    2. An Arithmetic Operator with 2 Arguments.
 //    3. A Let Operator with 3 Arguments.
